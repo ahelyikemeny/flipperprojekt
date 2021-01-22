@@ -1,5 +1,6 @@
 package Flipper;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -10,6 +11,11 @@ import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.Box2dStage;
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.MyContactListener;
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.MyFixtureDef;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
+import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimer;
+import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimerListener;
+import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
+import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
+import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FlipperInGameStage extends Box2dStage {
@@ -26,18 +32,29 @@ public class FlipperInGameStage extends Box2dStage {
         return life;
     }
     public void endGame() {
-        //if (getLife() == 0){
+        if (getLife() == 0){
             setLife(0);
             lifeCounter.setText("Elfogytak a golyóid!");
             BackButton backButton = new BackButton(game);
             addActor(backButton);
-            MyGame.printStackTrace();
+//            MyGame.printStackTrace();
             ballActor.remove();
-        //}
+        }
     }
     public FlipperInGameStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
-        setTimeMultiply(2);
+
+        //setTimeMultiply(2);
+
+        addTimer(new TickTimer(0.1f, true, new TickTimerListener(){
+            @Override
+            public void onTick(Timer sender, float correction) {
+                super.onTick(sender, correction);
+                Gdx.app.log("ACC","X=" + Gdx.input.getAccelerometerX() + " Y=" + Gdx.input.getAccelerometerY() + " Z=" + Gdx.input.getAccelerometerZ());
+            }
+        }));
+
+
         world.setGravity(new Vector2(0f,-100f));
         setCameraResetToCenterOfScreen();
         addBackButtonScreenBackByStackPopListener();
