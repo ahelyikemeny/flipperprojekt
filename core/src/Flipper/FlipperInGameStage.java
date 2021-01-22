@@ -17,6 +17,7 @@ public class FlipperInGameStage extends Box2dStage {
     BallActor ballActor;
     private MyLabel lifeCounter;
     private int life = 3;
+
     public void setLife(int life) {
         this.life = life;
         lifeCounter.setText("Points:" + life);
@@ -36,6 +37,7 @@ public class FlipperInGameStage extends Box2dStage {
     }
     public FlipperInGameStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
+        setTimeMultiply(2);
         world.setGravity(new Vector2(0f,-100f));
         setCameraResetToCenterOfScreen();
         addBackButtonScreenBackByStackPopListener();
@@ -110,7 +112,7 @@ public class FlipperInGameStage extends Box2dStage {
                     otherHelper.invoke(new Runnable() {
                         @Override
                         public void run() {
-                            otherHelper.getBody().setLinearVelocity(new Vector2(otherHelper.getBody().getLinearVelocity().x + 30, otherHelper.getBody().getLinearVelocity().y + 60));
+                            otherHelper.getBody().setLinearVelocity(new Vector2(otherHelper.getBody().getLinearVelocity().x + 70, otherHelper.getBody().getLinearVelocity().y + 60));
                             otherHelper.getBody().setAngularVelocity(0);
                         }
                     });
