@@ -8,9 +8,9 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 
 public class BackButton extends OneSpriteStaticActor {
     ClickListener c1;
-    public BackButton(MyGame game) {
+    public BackButton(MyGame game, float x, float y) {
         super(game, "badlogic.jpg");
-        setSize(100, 100);
+        setSize(20, 20);
         this.addListener( c1 = new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {

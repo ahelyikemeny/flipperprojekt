@@ -42,7 +42,7 @@ public class FlipperInGameStage extends Box2dStage {
         if (getLife() == 0){
             setLife(0);
             lifeCounter.setText("Elfogytak a golyóid!");
-            BackButton backButton = new BackButton(game);
+            BackButton backButton = new BackButton(game, 0, 0);
             addActor(backButton);
 //            MyGame.printStackTrace();
             ballActor.remove();
