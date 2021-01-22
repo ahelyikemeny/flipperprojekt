@@ -25,15 +25,18 @@ public class FlipperInGameStage extends Box2dStage {
         return life;
     }
     public void endGame() {
-        if (getLife() == 0){
+        //if (getLife() == 0){
             setLife(0);
             lifeCounter.setText("Elfogytak a golyóid!");
             BackButton backButton = new BackButton(game);
             addActor(backButton);
-        }
+            MyGame.printStackTrace();
+            ballActor.remove();
+        //}
     }
     public FlipperInGameStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
+        world.setGravity(new Vector2(0f,-100f));
         setCameraResetToCenterOfScreen();
         addBackButtonScreenBackByStackPopListener();
         setLoader("Flipper/hitboxes");
@@ -49,7 +52,7 @@ public class FlipperInGameStage extends Box2dStage {
         SensorActor2 sensorActor2 = new SensorActor2(game, world, 10, 5, 0, 70);
         sensorActor2.setRotation(-65);
         addActor(sensorActor2);
-        BallActor ballActor = new BallActor(game, world, 5,5,9,85);
+        ballActor = new BallActor(game, world, 5,5,9,85);
         addActor(ballActor);
         BottomSensorActor bottomSensorActor = new BottomSensorActor(game, world,200,15,0,0);
         addActor(bottomSensorActor);
