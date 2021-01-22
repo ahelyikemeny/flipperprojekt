@@ -22,6 +22,7 @@ public class FlipperutoActor2 extends BaseHitboxActor {
                         box2DWorldHelper.getBody().setAngularVelocity(-20f);
                     }else{
                         box2DWorldHelper.getBody().setAngularVelocity(0f);
+                        setRotation((int)Math.toDegrees(-0.6f));
                     }
                 } else {
                     //if (Math.abs(Math.toDegrees((box2DWorldHelper.getBody().getAngle() + Math.PI) % (Math.PI * 2f))) > 180) {
@@ -29,6 +30,7 @@ public class FlipperutoActor2 extends BaseHitboxActor {
                         box2DWorldHelper.getBody().setAngularVelocity(20f);
                     }else{
                         box2DWorldHelper.getBody().setAngularVelocity(0f);
+                        setRotation(0);
                     }
                 }
             }

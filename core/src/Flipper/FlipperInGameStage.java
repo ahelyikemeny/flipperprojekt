@@ -49,7 +49,7 @@ public class FlipperInGameStage extends Box2dStage {
         }
     }
     public FlipperInGameStage(MyGame game) {
-        super(new ExtendViewport(90,160), game);
+        super(new ExtendViewport(160,160), game);
 
         //setTimeMultiply(2);
 
