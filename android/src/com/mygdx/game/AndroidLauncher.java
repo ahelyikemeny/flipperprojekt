@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+import Flipper.FlipperGame;
 import hu.csanyzeg.master.Demos.DemoMyGame;
 import hu.csanyzeg.master.Kerulgetosjatek.NewGame;
 
@@ -14,6 +15,6 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useWakelock = true;
-		initialize(new DemoMyGame(false), config);
+		initialize(new FlipperGame(false), config);
 	}
 }

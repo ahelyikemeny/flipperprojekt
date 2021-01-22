@@ -18,23 +18,18 @@ public class BaseHitboxActor extends OneSpriteStaticActor {
     public BaseHitboxActor(Box2dStage stage, String textureHash, String hitboxHash, float width, float height){
         super(stage.game, textureHash);
         setSize(width, height);
+        System.out.println(this);
         box2DWorldHelper = new Box2DWorldHelper(stage.getWorld(), this, stage.getLoader(), hitboxHash, new MyFixtureDef(), BodyDef.BodyType.StaticBody);
+        setActorWorldHelper(box2DWorldHelper);
     }
 
     public BaseHitboxActor(Box2dStage stage, String textureHash, String hitboxHash, MyFixtureDef fixtureDef, BodyDef.BodyType bodyType, float width, float height){
         super(stage.game, textureHash);
         setSize(width, height);
+        System.out.println(this);
         box2DWorldHelper = new Box2DWorldHelper(stage.getWorld(), this, stage.getLoader(), hitboxHash, fixtureDef, bodyType);
+        setActorWorldHelper(box2DWorldHelper);
     }
 
 
-    @Override
-    protected void setStage(Stage stage) {
-        super.setStage(stage);
-        if (stage!=null){
-            box2DWorldHelper.addToWorld();
-        }else{
-            box2DWorldHelper.removeFromWorld();
-        }
-    }
 }

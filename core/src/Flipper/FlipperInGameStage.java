@@ -1,9 +1,12 @@
 package Flipper;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.Box2DWorldHelper;
@@ -20,7 +23,11 @@ import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FlipperInGameStage extends Box2dStage {
     MyContactListener myContactListener;
+
     BallActor ballActor;
+    FlipperutoActor flipperutoActor;
+    FlipperutoActor2 flipperutoActor2;
+
     private MyLabel lifeCounter;
     private int life = 3;
 
@@ -54,6 +61,25 @@ public class FlipperInGameStage extends Box2dStage {
             }
         }));
 
+        addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.CONTROL_RIGHT){
+                    flipperutoActor2.hitUp();
+                }
+                return super.keyDown(event, keycode);
+            }
+
+            public boolean keyUp(InputEvent event, int keycode) {
+                if (keycode == Input.Keys.CONTROL_RIGHT){
+                    flipperutoActor2.hitDown();
+                }
+                return super.keyDown(event, keycode);
+            }
+
+        });
+
+
 
         world.setGravity(new Vector2(0f,-100f));
         setCameraResetToCenterOfScreen();
@@ -62,8 +88,8 @@ public class FlipperInGameStage extends Box2dStage {
         addActor(new BgActor(this));
         addActor(new KatapultActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30,30 ));
         addActor(new KatapultActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30,30));
-        addActor(new FlipperutoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
-        addActor(new FlipperutoActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
+        addActor(flipperutoActor = new FlipperutoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
+        addActor(flipperutoActor2 = new FlipperutoActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
         addActor(new GyorsitoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
         SensorActor sensorActor = new SensorActor(game, world, 10,5,145,70);
         sensorActor.setRotation(65);
