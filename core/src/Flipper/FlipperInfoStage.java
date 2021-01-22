@@ -15,11 +15,11 @@ public class FlipperInfoStage extends MyStage {
         addBackButtonScreenBackByStackPopListener();
         setCameraResetToCenterOfScreen();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = game.getMyAssetManager().getFont("alegreyaregular.otf");
+        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
         labelStyle.fontColor = Color.GREEN;
         MyLabel label = new MyLabel(game, "Kancsal csinalj texturat", labelStyle);
         label.setFontScale(0.2f);
-        label.setPosition(20,70);
+        label.setPosition(0,70);
         addActor(label);
 
 } }
