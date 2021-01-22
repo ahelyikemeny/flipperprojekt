@@ -17,7 +17,7 @@ public class FlipperInfoStage extends MyStage {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
         labelStyle.fontColor = Color.GREEN;
-        MyLabel label = new MyLabel(game, "Kancsal csinalj texturat", labelStyle);
+        MyLabel label = new MyLabel(game, "Kancsal csinalj texturat!!4!", labelStyle);
         label.setFontScale(0.2f);
         label.setPosition(0,70);
         addActor(label);
