@@ -16,6 +16,7 @@ public class FlipperMenuStage extends MyStage {
         addActor(new FlipperStartButton(game, 40, 10, 0, 90 ));
         addActor(new FlipperExitButton(game, 40, 10, 0, 60));
         addActor(new FlipperInfoButton(game, 40, 10, 0, 30));
+        addActor(new FlipperCreditButton(game, 40, 10, 0, 0));
 
     }
 }
