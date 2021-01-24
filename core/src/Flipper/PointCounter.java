@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 
-public class LifeCounter extends Label.LabelStyle {
-    public LifeCounter(MyGame game) {
+public class PointCounter extends Label.LabelStyle {
+    public PointCounter(MyGame game) {
         super(game.getMyAssetManager().getFont("Flipper/font2.ttf"), Color.YELLOW);
     }
 
