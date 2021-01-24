@@ -28,6 +28,8 @@ public class FlipperExitButton extends OneSpriteStaticActor {
                         game.setScreenBackByStackPop();
                     }
                 }));
+
+                removeListener(c1);
             }
         });
     }
