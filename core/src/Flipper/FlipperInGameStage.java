@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.Box2DWorldHelper;
@@ -23,6 +24,10 @@ import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FlipperInGameStage extends Box2dStage {
     MyContactListener myContactListener;
+
+    ClickListener c1;
+
+    FlipperStartButton startButton;
 
     BallActor ballActor;
     FlipperutoActor flipperutoActor;
@@ -64,6 +69,8 @@ public class FlipperInGameStage extends Box2dStage {
         super(new ExtendViewport(90,160), game);
 
         //setTimeMultiply(2);
+
+
 
 
         addListener(new InputListener(){
@@ -277,5 +284,9 @@ public class FlipperInGameStage extends Box2dStage {
 
             }
         });
+
+        startButton = new FlipperStartButton(game, 20, 20, 70, 0);
+        addActor(startButton);
     }
+
 }
