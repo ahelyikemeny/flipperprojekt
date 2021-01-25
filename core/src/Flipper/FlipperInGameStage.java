@@ -28,7 +28,6 @@ public class FlipperInGameStage extends Box2dStage {
     ClickListener c1;
 
     FlipperStartButton startButton;
-
     BallActor ballActor;
     FlipperutoActor flipperutoActor;
     FlipperutoActor2 flipperutoActor2;
@@ -61,6 +60,8 @@ public class FlipperInGameStage extends Box2dStage {
             lifeCounter.setText("Elfogytak a golyoid!");
             BackButton backButton = new BackButton(game, 0, 0);
             addActor(backButton);
+            startButton = new FlipperStartButton(game, 20, 20, 70, 0);
+            addActor(startButton);
 //            MyGame.printStackTrace();
             ballActor.remove();
         }
@@ -285,8 +286,6 @@ public class FlipperInGameStage extends Box2dStage {
             }
         });
 
-        startButton = new FlipperStartButton(game, 20, 20, 70, 0);
-        addActor(startButton);
     }
 
 }

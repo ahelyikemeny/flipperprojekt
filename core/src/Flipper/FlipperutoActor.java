@@ -8,7 +8,6 @@ import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimerListener;
 
 public class FlipperutoActor extends BaseHitboxActor {
-    MyFixtureDef myFixtureDef;
     public FlipperutoActor(Box2dStage stage, MyFixtureDef fixtureDef, BodyDef.BodyType bodyType, float width, float height) {
         super(stage, "Flipper/flipperuto.png", "flipperuto", new MyFixtureDef(), BodyDef.BodyType.KinematicBody, width, height);
         setPosition(10,5);
