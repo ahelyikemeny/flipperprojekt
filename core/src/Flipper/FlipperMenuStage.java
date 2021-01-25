@@ -1,22 +1,96 @@
 package Flipper;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
+import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimer;
+import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimerListener;
+import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FlipperMenuStage extends MyStage {
+
+    ClickListener c1;
 
     public FlipperMenuStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
         addBackButtonScreenBackByStackPopListener();
-        addActor(new FlipperMenuBackgroundActor(game, 160,120,0,0) );
-        addActor(new FlipperStartButton(game, 40, 10, 0, 90 ));
-        addActor(new FlipperExitButton(game, 40, 10, 0, 60));
-        addActor(new FlipperInfoButton(game, 40, 10, 0, 30));
-        addActor(new FlipperCreditButton(game, 40, 10, 0, 0));
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
+        labelStyle.fontColor = Color.GREEN;
+
+        MyLabel label1 = new MyLabel(game, "Start", labelStyle);
+        label1.setFontScale(0.2f);
+        label1.setPosition(0,90);
+        addActor(label1);
+
+        MyLabel label2 = new MyLabel(game, "Exit", labelStyle);
+        label2.setFontScale(0.2f);
+        label2.setPosition(0,60);
+        addActor(label2);
+
+        MyLabel label3 = new MyLabel(game, "Info", labelStyle);
+        label3.setFontScale(0.2f);
+        label3.setPosition(0,30);
+        addActor(label3);
+
+        MyLabel label4 = new MyLabel(game, "Credits", labelStyle);
+        label4.setFontScale(0.2f);
+        label4.setPosition(0,00);
+        addActor(label4);
+
+
+        label1.addListener(c1 = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.getMyAssetManager().getSound("click.mp3").play();
+                game.setScreen(new FlipperInGameScreen(game));
+            }
+        });
+
+        this.addListener(c1 = new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.getMyAssetManager().getSound("click.mp3").play();
+                addTimer(new OneTickTimer(1, new OneTickTimerListener() {
+                    @Override
+                    public void onTick(OneTickTimer sender, float correction) {
+                        super.onTick(sender, correction);
+                        game.setScreenBackByStackPop();
+                    }
+                }));
+
+                removeListener(c1);
+            }
+        });
+
+        label3.addListener(c1 = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.getMyAssetManager().getSound("click.mp3").play();
+                game.setScreen(new FlipperInfoScreen(game));
+            }
+        });
+
+        label4.addListener(c1 = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.getMyAssetManager().getSound("click.mp3").play();
+                game.setScreen(new FlipperCreditScreen(game));
+            }
+        });
+
+
 
     }
 }
