@@ -12,7 +12,7 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 public class Points extends OneSpriteStaticActor {
     public Points(MyGame game, World world, float x, float y) {
         super(game, "box2dhelper/ball.png");
-        setSize(20,20);
+        setSize(5,5);
         setPosition(x,y);
         MyFixtureDef myFixtureDef = new MyFixtureDef();
         myFixtureDef.isSensor = true;

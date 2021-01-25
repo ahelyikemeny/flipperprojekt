@@ -19,7 +19,7 @@ public class FlipperutoActor extends BaseHitboxActor {
                 if (state) {
                     //if (Math.abs(Math.toDegrees((box2DWorldHelper.getBody().getAngle() + Math.PI) % (Math.PI * 2f))) < 200) {
                     if (box2DWorldHelper.getBody().getAngle() > 0.6f) {
-                        box2DWorldHelper.getBody().setAngularVelocity(20f);
+                        box2DWorldHelper.getBody().setAngularVelocity(-20f);
                     }else{
                         box2DWorldHelper.getBody().setAngularVelocity(0f);
                         setRotation((int)Math.toDegrees(0.6f));
@@ -27,7 +27,7 @@ public class FlipperutoActor extends BaseHitboxActor {
                 } else {
                     //if (Math.abs(Math.toDegrees((box2DWorldHelper.getBody().getAngle() + Math.PI) % (Math.PI * 2f))) > 180) {
                     if (box2DWorldHelper.getBody().getAngle() < 0f) {
-                        box2DWorldHelper.getBody().setAngularVelocity(-20f);
+                        box2DWorldHelper.getBody().setAngularVelocity(20f);
                     }else{
                         box2DWorldHelper.getBody().setAngularVelocity(0f);
                         setRotation(0);
@@ -38,11 +38,11 @@ public class FlipperutoActor extends BaseHitboxActor {
     }
     private boolean state = false;
 
-    public void hitUp(){
+    public void hitUp1(){
         state = true;
     }
 
-    public void hitDown(){
+    public void hitDown1(){
         state = false;
     }
 }

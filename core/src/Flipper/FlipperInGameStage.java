@@ -89,14 +89,14 @@ public class FlipperInGameStage extends Box2dStage {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.CONTROL_LEFT){
-                    flipperutoActor.hitUp();
+                    flipperutoActor.hitUp1();
                 }
                 return super.keyDown(event, keycode);
             }
 
             public boolean keyUp(InputEvent event, int keycode) {
                 if (keycode == Input.Keys.CONTROL_LEFT){
-                    flipperutoActor.hitDown();
+                    flipperutoActor.hitDown1();
                 }
                 return super.keyDown(event, keycode);
             }

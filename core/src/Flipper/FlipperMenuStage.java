@@ -22,8 +22,8 @@ public class FlipperMenuStage extends MyStage {
         super(new ExtendViewport(90,160), game);
         addBackButtonScreenBackByStackPopListener();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
-        labelStyle.fontColor = Color.GREEN;
+        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
+        labelStyle.fontColor = Color.YELLOW;
 
         MyLabel label1 = new MyLabel(game, "Start", labelStyle);
         label1.setFontScale(0.2f);
