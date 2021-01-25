@@ -115,11 +115,11 @@ public class FlipperInGameStage extends Box2dStage {
         addActor(flipperutoActor = new FlipperutoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
         addActor(flipperutoActor2 = new FlipperutoActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
         addActor(new GyorsitoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
-        SensorActor sensorActor = new SensorActor(game, world, 10,5,73,70);
-        sensorActor.setRotation(65);
+        SensorActor sensorActor = new SensorActor(game, world, 11,5,73,71);
+        sensorActor.setRotation(30);
         addActor(sensorActor);
-        SensorActor2 sensorActor2 = new SensorActor2(game, world, 10, 5, 0, 70);
-        sensorActor2.setRotation(-65);
+        SensorActor2 sensorActor2 = new SensorActor2(game, world, 11, 5, 4, 71);
+        sensorActor2.setRotation(-30);
         addActor(sensorActor2);
         ballActor = new BallActor(game, world, 5,5,9,85);
         addActor(ballActor);
@@ -221,7 +221,7 @@ public class FlipperInGameStage extends Box2dStage {
                     otherHelper.invoke(new Runnable() {
                         @Override
                         public void run() {
-                            otherHelper.getBody().setLinearVelocity(new Vector2(otherHelper.getBody().getLinearVelocity().x + 70, otherHelper.getBody().getLinearVelocity().y + 60));
+                            otherHelper.getBody().setLinearVelocity(new Vector2(otherHelper.getBody().getLinearVelocity().x + 30, otherHelper.getBody().getLinearVelocity().y + 80));
                             otherHelper.getBody().setAngularVelocity(0);
                         }
                     });
@@ -254,8 +254,9 @@ public class FlipperInGameStage extends Box2dStage {
                     otherHelper.invoke(new Runnable() {
                         @Override
                         public void run() {
-                            otherHelper.getBody().setLinearVelocity(0,100);
+                            otherHelper.getBody().setLinearVelocity(new Vector2(otherHelper.getBody().getLinearVelocity().x + 30, otherHelper.getBody().getLinearVelocity().y + 80));
                             otherHelper.getBody().setAngularVelocity(0);
+
                         }
                     });
                 }
