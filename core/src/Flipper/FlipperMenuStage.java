@@ -32,17 +32,17 @@ public class FlipperMenuStage extends MyStage {
 
         MyLabel label2 = new MyLabel(game, "Exit", labelStyle);
         label2.setFontScale(0.2f);
-        label2.setPosition(0,60);
+        label2.setPosition(0,0);
         addActor(label2);
 
         MyLabel label3 = new MyLabel(game, "Info", labelStyle);
         label3.setFontScale(0.2f);
-        label3.setPosition(0,30);
+        label3.setPosition(0,60);
         addActor(label3);
 
         MyLabel label4 = new MyLabel(game, "Credits", labelStyle);
         label4.setFontScale(0.2f);
-        label4.setPosition(0,00);
+        label4.setPosition(0,30);
         addActor(label4);
 
 

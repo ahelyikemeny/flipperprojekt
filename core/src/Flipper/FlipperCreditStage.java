@@ -17,14 +17,44 @@ public class FlipperCreditStage extends MyStage {
         addBackButtonScreenBackByStackPopListener();
         setCameraResetToCenterOfScreen();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
-        labelStyle.fontColor = Color.GREEN;
+        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
+        labelStyle.fontColor = Color.YELLOW;
 
         backButton = new BackButton(game, 20, 160);
         addActor(backButton);
 
-        MyLabel label = new MyLabel(game, "Kancsal csinalj texturat!!4!", labelStyle);
+        MyLabel label = new MyLabel(game, "Creators:", labelStyle);
         label.setFontScale(0.2f);
-        label.setPosition(0, 20);
+        label.setPosition(0, 135);
+        addActor(label);
+
+        label = new MyLabel(game, "Fellner Milan", labelStyle);
+        label.setFontScale(0.2f);
+        label.setPosition(0, 120);
+        addActor(label);
+
+        label = new MyLabel(game, "Kancsal Mate", labelStyle);
+        label.setFontScale(0.2f);
+        label.setPosition(0, 110);
+        addActor(label);
+
+        label = new MyLabel(game, "Kele Lorand", labelStyle);
+        label.setFontScale(0.2f);
+        label.setPosition(0, 100);
+        addActor(label);
+
+        label = new MyLabel(game, "Zsebok David Ferenc", labelStyle);
+        label.setFontScale(0.2f);
+        label.setPosition(0, 90);
+        addActor(label);
+
+        label = new MyLabel(game, "Teacher:", labelStyle);
+        label.setFontScale(0.2f);
+        label.setPosition(0, 75);
+        addActor(label);
+
+        label = new MyLabel(game, "Tuske Balazs", labelStyle);
+        label.setFontScale(0.2f);
+        label.setPosition(0, 60);
         addActor(label);
     }}
