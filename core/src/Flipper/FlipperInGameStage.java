@@ -2,6 +2,7 @@ package Flipper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -15,6 +16,8 @@ import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.Box2dStage;
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.MyContactListener;
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.MyFixtureDef;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
+import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimer;
+import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
@@ -37,6 +40,9 @@ public class FlipperInGameStage extends Box2dStage {
     private int life = 3;
     private int points = 0;
 
+    private int tiltCount = 0;
+    private boolean tilt = false;
+
 
     public void setPoint(int points) {
         this.points = points;
@@ -50,6 +56,29 @@ public class FlipperInGameStage extends Box2dStage {
         lifeCounter.setText("Points:" + life);
     }
 
+
+
+    private boolean cheatGravity = false;
+    public void cheat(Vector2 vector2){
+        if (!cheatGravity) {
+            cheatGravity = true;
+            Vector2 grav = getWorld().getGravity();
+            getWorld().setGravity(vector2);
+            addTimer(new OneTickTimer(0.03f, new OneTickTimerListener() {
+                @Override
+                public void onTick(OneTickTimer sender, float correction) {
+                    super.onTick(sender, correction);
+                    getWorld().setGravity(grav);
+                    cheatGravity = false;
+                }
+            }));
+            tiltCount++;
+            if (tiltCount > 2){
+                System.out.println("TILT");
+                tilt = true;
+            }
+        }
+    }
 
     public int getLife() {
         return life;
@@ -66,50 +95,64 @@ public class FlipperInGameStage extends Box2dStage {
             ballActor.remove();
         }
     }
+
+    private RandomXS128 random = new RandomXS128();
+
     public FlipperInGameStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
 
         //setTimeMultiply(2);
 
 
-
+        addTimer(new TickTimer(10f, true, new TickTimerListener(){
+            @Override
+            public void onRepeat(TickTimer sender) {
+                super.onRepeat(sender);
+                if (tiltCount > 0){
+                    tiltCount--;
+                }
+            }
+        }));
 
         addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
-                if (keycode == Input.Keys.CONTROL_RIGHT){
-                    flipperutoActor2.hitUp();
+                if (!tilt) {
+                    if (keycode == Input.Keys.CONTROL_RIGHT) {
+                        flipperutoActor2.hitUp();
+                    }
+                    if (keycode == Input.Keys.CONTROL_LEFT) {
+                        flipperutoActor.hitUp1();
+                    }
                 }
                 return super.keyDown(event, keycode);
             }
 
             public boolean keyUp(InputEvent event, int keycode) {
-                if (keycode == Input.Keys.CONTROL_RIGHT){
-                    flipperutoActor2.hitDown();
+                if (!tilt) {
+                    if (keycode == Input.Keys.CONTROL_LEFT) {
+                        flipperutoActor.hitDown1();
+                    }
+
+                    if (keycode == Input.Keys.CONTROL_RIGHT) {
+                        flipperutoActor2.hitDown();
+                    }
                 }
                 return super.keyDown(event, keycode);
             }
 
-        });
-
-
-        addListener(new InputListener(){
             @Override
-            public boolean keyDown(InputEvent event, int keycode) {
-                if (keycode == Input.Keys.CONTROL_LEFT){
-                    flipperutoActor.hitUp1();
+            public boolean keyTyped(InputEvent event, char character) {
+                if (!tilt) {
+                    if (character == ' ') {
+                        cheat(new Vector2(random.nextInt(10000) - 5000, random.nextInt(10000) - 5000));
+                    }
                 }
-                return super.keyDown(event, keycode);
-            }
-
-            public boolean keyUp(InputEvent event, int keycode) {
-                if (keycode == Input.Keys.CONTROL_LEFT){
-                    flipperutoActor.hitDown1();
-                }
-                return super.keyDown(event, keycode);
+                return super.keyTyped(event, character);
             }
 
         });
+
 
 
 
@@ -129,9 +172,9 @@ public class FlipperInGameStage extends Box2dStage {
         SensorActor2 sensorActor2 = new SensorActor2(game, world, 13, 5, 3, 72);
         sensorActor2.setRotation(-30);
         addActor(sensorActor2);
-        ballActor = new BallActor(game, world, 5,5,9,85);
+        ballActor = new BallActor(game, world, 5,5,29,85);
         addActor(ballActor);
-        BottomSensorActor bottomSensorActor = new BottomSensorActor(game, world,200,15,0,0);
+        BottomSensorActor bottomSensorActor = new BottomSensorActor(game, world,200,10,0,-10);
         addActor(bottomSensorActor);
 
         Points points = new Points(game,world, 40,20);
@@ -192,6 +235,8 @@ public class FlipperInGameStage extends Box2dStage {
                     otherHelper.getActor().setPosition(60,50);
                     setLife(getLife() - 1);
                     lifeCounter.setText((getLife()));
+                    tilt = false;
+                    tiltCount = 0;
                     otherHelper.invoke(new Runnable() {
                         @Override
                         public void run() {
