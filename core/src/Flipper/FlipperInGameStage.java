@@ -1,6 +1,5 @@
 package Flipper;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
@@ -18,16 +17,13 @@ import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.MyFixtureDef;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimerListener;
-import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimer;
-import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
-import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FlipperInGameStage extends Box2dStage {
     MyContactListener myContactListener;
-
+    PointActorCircle pointActorCircle;
     ClickListener c1;
 
     FlipperStartButton startButton;
@@ -36,25 +32,18 @@ public class FlipperInGameStage extends Box2dStage {
     FlipperutoActor2 flipperutoActor2;
 
     private MyLabel lifeCounter;
-    private MyLabel pointCounter;
+    public MyLabel pointCounter;
     private int life = 3;
-    private int points = 0;
 
     private int tiltCount = 0;
     private boolean tilt = false;
 
 
-    public void setPoint(int points) {
-        this.points = points;
-        pointCounter.setText("Points:" + points);
-    }
-    public int getPoints() {
-        return points;
-    }
     public void setLife(int life) {
         this.life = life;
         lifeCounter.setText("Points:" + life);
     }
+
 
 
 
@@ -86,7 +75,7 @@ public class FlipperInGameStage extends Box2dStage {
     public void endGame() {
         if (getLife() == 0){
             setLife(0);
-            lifeCounter.setText("Elfogytak a golyoid!");
+            lifeCounter.setText("You ran out of lives!");
             BackButton backButton = new BackButton(game, 0, 0);
             addActor(backButton);
             startButton = new FlipperStartButton(game, 20, 20, 70, 0);
@@ -153,7 +142,7 @@ public class FlipperInGameStage extends Box2dStage {
 
         });
 
-
+        pointActorCircle = new PointActorCircle(game,world,15,80);
 
 
         world.setGravity(new Vector2(0f,-100f));
@@ -165,20 +154,20 @@ public class FlipperInGameStage extends Box2dStage {
         addActor(new KatapultActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30,30));
         addActor(flipperutoActor = new FlipperutoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
         addActor(flipperutoActor2 = new FlipperutoActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
-        addActor(new GyorsitoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
+        //addActor(new GyorsitoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));//
         SensorActor sensorActor = new SensorActor(game, world, 13,5,71,72);
         sensorActor.setRotation(30);
         addActor(sensorActor);
         SensorActor2 sensorActor2 = new SensorActor2(game, world, 13, 5, 3, 72);
         sensorActor2.setRotation(-30);
         addActor(sensorActor2);
-        ballActor = new BallActor(game, world, 5,5,29,85);
+        ballActor = new BallActor(game, world, 5,5,20,85);
         addActor(ballActor);
         BottomSensorActor bottomSensorActor = new BottomSensorActor(game, world,200,10,0,-10);
         addActor(bottomSensorActor);
 
-        Points points = new Points(game,world, 40,20);
-        addActor(points);
+
+        addActor(pointActorCircle);
 
 
         lifeCounter = new MyLabel(game, "Life: ", new LifeCounter(game));
@@ -196,37 +185,6 @@ public class FlipperInGameStage extends Box2dStage {
         pointCounter.setAlignment(2);
 
 
-        getHelper(points).addContactListener(new MyContactListener() {
-            @Override
-            public void beginContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-                if (otherHelper.getActor() instanceof BallActor){
-                    setPoint(getPoints() + 1);
-                    System.out.println(getPoints());
-                    pointCounter.setText("Points: " + getPoints());
-                    otherHelper.invoke(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void endContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-                points.remove();
-            }
-
-            @Override
-            public void preSolve(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-
-            }
-
-            @Override
-            public void postSolve(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-
-            }
-        });
 
         getHelper(bottomSensorActor).addContactListener(new MyContactListener() {
             @Override
@@ -234,7 +192,7 @@ public class FlipperInGameStage extends Box2dStage {
                 if (otherHelper.getActor() instanceof BallActor){
                     otherHelper.getActor().setPosition(60,50);
                     setLife(getLife() - 1);
-                    lifeCounter.setText((getLife()));
+                    lifeCounter.setText(("Life " + getLife()));
                     tilt = false;
                     tiltCount = 0;
                     otherHelper.invoke(new Runnable() {
