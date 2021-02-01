@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import hu.csanyzeg.master.MyBaseClasses.Assets.AssetList;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyStage;
 import hu.csanyzeg.master.MyBaseClasses.Scene2D.ResponseViewport;
@@ -18,9 +19,17 @@ public class FlipperMenuStage extends MyStage {
 
     ClickListener c1;
 
+    public static AssetList assetList = new AssetList();
+    static {
+        AssetList.collectAssetDescriptor(AnimatedKatapultActor.class, assetList);
+    }
+
     public FlipperMenuStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
         addBackButtonScreenBackByStackPopListener();
+        setCameraResetToLeftBottomOfScreen();
+
+        addActor(new AnimatedKatapultActor(game));
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
         labelStyle.fontColor = Color.YELLOW;
