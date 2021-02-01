@@ -11,6 +11,6 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.width=300;
 		config.height=600;
-		new LwjglApplication(new FlipperGame(true), config);
+		new LwjglApplication(new FlipperGame(false), config);
 	}
 }

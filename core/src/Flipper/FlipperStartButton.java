@@ -9,7 +9,7 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 public class FlipperStartButton extends OneSpriteStaticActor {
     ClickListener c1;
     public FlipperStartButton(MyGame game, int width, int height, float x, float y) {
-        super(game, "badlogic.jpg");
+        super(game, "Flipper/gombrestart.png");
         setPosition(x,y);
         setSize(width, height);
         this.addListener(c1 = new ClickListener() {
