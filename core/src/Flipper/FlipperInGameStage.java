@@ -193,8 +193,8 @@ public class FlipperInGameStage extends Box2dStage {
         BottomSensorActor bottomSensorActor = new BottomSensorActor(game, world,200,10,0,-10);
         addActor(bottomSensorActor);
 
-        Points points = new Points(game,world, 40,20);
-        addActor(points);
+        PointActorCircle pointActorCircle = new PointActorCircle(game,world, 40,20);
+        addActor(pointActorCircle);
 
 
         lifeCounter = new MyLabel(game, "Life: ", new LifeCounter(game));
@@ -212,7 +212,7 @@ public class FlipperInGameStage extends Box2dStage {
         pointCounter.setAlignment(2);
 
 
-        getHelper(points).addContactListener(new MyContactListener() {
+        getHelper(pointActorCircle).addContactListener(new MyContactListener() {
             @Override
             public void beginContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
                 if (otherHelper.getActor() instanceof BallActor){
@@ -230,7 +230,7 @@ public class FlipperInGameStage extends Box2dStage {
 
             @Override
             public void endContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-                points.remove();
+                pointActorCircle.remove();
             }
 
             @Override
