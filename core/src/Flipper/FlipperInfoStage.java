@@ -1,8 +1,10 @@
 package Flipper;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.AddAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -11,6 +13,7 @@ import hu.csanyzeg.master.MyBaseClasses.Scene2D.MyStage;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FlipperInfoStage extends MyStage {
+    ClickListener c1;
     BackButton backButton;
     public FlipperInfoStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
@@ -20,8 +23,19 @@ public class FlipperInfoStage extends MyStage {
         labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
         labelStyle.fontColor = Color.GREEN;
 
-        backButton = new BackButton(game, 20, 160);
-        addActor(backButton);
+        MyLabel label1 = new MyLabel(game, "Back", labelStyle);
+        label1.setFontScale(0.2f);
+        label1.setPosition(0,0);
+        addActor(label1);
+
+        label1.addListener(c1 = new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                game.getMyAssetManager().getSound("click.mp3").play();
+                game.setScreen(new FlipperMenuScreen(game));
+            }
+        });
 
         MyLabel label = new MyLabel(game, "Kancsal csinalj texturat!!4!", labelStyle);
         label.setFontScale(0.2f);

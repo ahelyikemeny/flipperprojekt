@@ -2,12 +2,14 @@ package Flipper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
@@ -30,7 +32,7 @@ public class FlipperInGameStage extends Box2dStage {
 
     ClickListener c1;
 
-    FlipperStartButton startButton;
+    RestartButton restartButton;
     BallActor ballActor;
     FlipperutoActor flipperutoActor;
     FlipperutoActor2 flipperutoActor2;
@@ -87,11 +89,25 @@ public class FlipperInGameStage extends Box2dStage {
         if (getLife() == 0){
             setLife(0);
             lifeCounter.setText("Elfogytak a golyoid!");
-            BackButton backButton = new BackButton(game, 0, 0);
-            addActor(backButton);
-            startButton = new FlipperStartButton(game, 20, 20, 70, 0);
-            addActor(startButton);
-//            MyGame.printStackTrace();
+
+            Label.LabelStyle labelStyle = new Label.LabelStyle();
+            labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
+            labelStyle.fontColor = Color.YELLOW;
+            MyLabel label = new MyLabel(game, "Back", labelStyle);
+            label.setFontScale(0.4f);
+            label.setPosition(30,50);
+            label.addListener(c1 = new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    super.clicked(event, x, y);
+                    game.getMyAssetManager().getSound("click.mp3").play();
+                    game.setScreen(new FlipperMenuScreen(game));
+                }
+            });
+            addActor(label);
+
+            restartButton = new RestartButton(game, 40, 40, 30, 80);
+            addActor(restartButton);
             ballActor.remove();
         }
     }
