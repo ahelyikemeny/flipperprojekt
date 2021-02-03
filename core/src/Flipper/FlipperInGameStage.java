@@ -5,8 +5,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -24,7 +26,6 @@ import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.TickTimerListener;
-import hu.csanyzeg.master.MyBaseClasses.Timers.Timer;
 import hu.csanyzeg.master.MyBaseClasses.UI.MyLabel;
 
 public class FlipperInGameStage extends Box2dStage {
@@ -52,6 +53,16 @@ public class FlipperInGameStage extends Box2dStage {
         lifeCounter.setText("Points:" + life);
     }
 
+
+    private void setPoint(int p){
+        points = p;
+        pointCounter.setText("Points: " + points);
+        System.out.println(p);
+    }
+
+    public void addPoint(int p) {
+        setPoint(points + p);
+    }
 
 
     private boolean cheatGravity = false;
@@ -110,6 +121,8 @@ public class FlipperInGameStage extends Box2dStage {
 
     public FlipperInGameStage(MyGame game) {
         super(new ExtendViewport(90,160), game);
+
+
 
         //setTimeMultiply(2);
 
@@ -199,11 +212,12 @@ public class FlipperInGameStage extends Box2dStage {
         lifeCounter.setAlignment(2);
 
 
-       pointCounter = new MyLabel(game, "Points: " + pointActorCircle.getPoints(), new PointCounter(game));
+        pointCounter = new MyLabel(game, "", new PointCounter(game));
         addActor(pointCounter);
         pointCounter.setPositionCenter(135);
         pointCounter.setFontScale(0.3f);
         pointCounter.setAlignment(2);
+        setPoint(0);
 
 
         getHelper(bottomSensorActor).addContactListener(new MyContactListener() {
@@ -308,6 +322,63 @@ public class FlipperInGameStage extends Box2dStage {
 
             }
         });
+
+        Actor leftControlActor;
+        leftControlActor = new Actor(); //new OneSpriteStaticActor(game, "badlogic.jpg");
+        leftControlActor.setDebug(game.debug);
+        leftControlActor.setPosition(0,- (getViewport().getWorldHeight() / 2 - ((ExtendViewport)getViewport()).getCamera().position.y));
+        leftControlActor.setSize(getViewport().getWorldWidth() / 3, getViewport().getWorldHeight());
+        leftControlActor.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                flipperutoActor.hitUp1();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                flipperutoActor.hitDown1();
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        addActor(leftControlActor);
+
+        final PermanentTimer p;
+        addTimer(p = new PermanentTimer(new PermanentTimerListener(){
+            Vector3 oldXYZ = null;
+            @Override
+            public void onTick(PermanentTimer sender, float correction) {
+                super.onTick(sender, correction);
+
+                if (oldXYZ != null){
+                    Vector3 newXYZ = new Vector3();
+                    newXYZ.x = Gdx.input.getAccelerometerX();
+                    newXYZ.y = Gdx.input.getAccelerometerY();
+                    newXYZ.z = Gdx.input.getAccelerometerZ();
+
+                    if (oldXYZ.sub(newXYZ).len() >= 0.4f * Gdx.graphics.getDeltaTime()){
+                        Gdx.app.log("Flipper", "Tilt");
+                        cheat(new Vector2(oldXYZ.sub(newXYZ).x * 100, oldXYZ.sub(newXYZ).z * 100));
+                        sender.stop();
+                        addTimer(new OneTickTimer(0.5f, new OneTickTimerListener(){
+                            @Override
+                            public void onTick(OneTickTimer sender2, float correction) {
+                                super.onTick(sender2, correction);
+                                sender.start();
+                            }
+                        }));
+                    }
+                }
+                else {
+                    oldXYZ = new Vector3();
+                }
+
+                oldXYZ.x = Gdx.input.getAccelerometerX();
+                oldXYZ.y = Gdx.input.getAccelerometerY();
+                oldXYZ.z = Gdx.input.getAccelerometerZ();
+
+            }
+        }));
 
     }
 
