@@ -36,6 +36,7 @@ public class FlipperInGameStage extends Box2dStage {
     BallActor ballActor;
     FlipperutoActor flipperutoActor;
     FlipperutoActor2 flipperutoActor2;
+    PointActorCircle pointActorCircle;
 
     private MyLabel lifeCounter;
     private MyLabel pointCounter;
@@ -46,13 +47,6 @@ public class FlipperInGameStage extends Box2dStage {
     private boolean tilt = false;
 
 
-    public void setPoint(int points) {
-        this.points = points;
-        pointCounter.setText("Points:" + points);
-    }
-    public int getPoints() {
-        return points;
-    }
     public void setLife(int life) {
         this.life = life;
         lifeCounter.setText("Points:" + life);
@@ -181,7 +175,7 @@ public class FlipperInGameStage extends Box2dStage {
         addActor(new KatapultActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30,30));
         addActor(flipperutoActor = new FlipperutoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
         addActor(flipperutoActor2 = new FlipperutoActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
-        addActor(new GyorsitoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
+        //addActor(new GyorsitoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
         SensorActor sensorActor = new SensorActor(game, world, 13,5,71,72);
         sensorActor.setRotation(30);
         addActor(sensorActor);
@@ -205,44 +199,12 @@ public class FlipperInGameStage extends Box2dStage {
         lifeCounter.setAlignment(2);
 
 
-       pointCounter = new MyLabel(game, "Points: ", new PointCounter(game));
+       pointCounter = new MyLabel(game, "Points: " + pointActorCircle.getPoints(), new PointCounter(game));
         addActor(pointCounter);
         pointCounter.setPositionCenter(135);
         pointCounter.setFontScale(0.3f);
         pointCounter.setAlignment(2);
 
-
-        getHelper(pointActorCircle).addContactListener(new MyContactListener() {
-            @Override
-            public void beginContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-                if (otherHelper.getActor() instanceof BallActor){
-                    setPoint(getPoints() + 1);
-                    System.out.println(getPoints());
-                    pointCounter.setText("Points: " + getPoints());
-                    otherHelper.invoke(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void endContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-                pointActorCircle.remove();
-            }
-
-            @Override
-            public void preSolve(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-
-            }
-
-            @Override
-            public void postSolve(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
-
-            }
-        });
 
         getHelper(bottomSensorActor).addContactListener(new MyContactListener() {
             @Override

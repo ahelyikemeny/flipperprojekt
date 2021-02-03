@@ -20,6 +20,7 @@ public class PointActorCircle extends OneSpriteStaticActor {
     PointActorCircle pointActorCircle;
     MyContactListener myContactListener;
     ContactListener contactListener;
+    PointCounter pointCounter;
 
 
 
