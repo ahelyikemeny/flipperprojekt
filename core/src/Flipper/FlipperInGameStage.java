@@ -93,7 +93,7 @@ public class FlipperInGameStage extends Box2dStage {
     public void endGame() {
         if (getLife() == 0){
             setLife(0);
-            lifeCounter.setText("Elfogytak a golyoid!");
+            lifeCounter.setText("Ran out of balls!");
 
             Label.LabelStyle labelStyle = new Label.LabelStyle();
             labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
@@ -200,7 +200,9 @@ public class FlipperInGameStage extends Box2dStage {
         BottomSensorActor bottomSensorActor = new BottomSensorActor(game, world,200,10,0,-10);
         addActor(bottomSensorActor);
 
-        PointActorCircle pointActorCircle = new PointActorCircle(game,world, 40,20);
+        PointActorCircle pointActorCircle = new PointActorCircle(game,world, 15,90);
+        PointActorCircle pointActorCircle2 = new PointActorCircle(game,world, 60, 90);
+        addActor(pointActorCircle2);
         addActor(pointActorCircle);
 
 

@@ -36,7 +36,7 @@ public class PointActorCircle extends OneSpriteStaticActor {
  */
 
     public PointActorCircle(MyGame game, World world, float x, float y) {
-        super(game, "box2dhelper/ball.png");
+        super(game, "Flipper/kor.png");
         setSize(15,15);
         setPosition(x,y);
         MyFixtureDef myFixtureDef = new MyFixtureDef();
@@ -47,7 +47,7 @@ public class PointActorCircle extends OneSpriteStaticActor {
             public void beginContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
                 if (otherHelper.actor instanceof BallActor){
                     if (getStage() != null) {
-                        ((FlipperInGameStage) getStage()).addPoint(1);
+                        ((FlipperInGameStage) getStage()).addPoint(100);
                     }
                     //setPoint(getPoints() + 1);
                     //System.out.println(getPoints());
