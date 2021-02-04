@@ -210,7 +210,7 @@ public class FlipperInGameStage extends Box2dStage {
         lifeCounter = new MyLabel(game, "Life: ", new LifeCounter(game));
         addActor(lifeCounter);
         lifeCounter.setFontScale(0.3f);
-        lifeCounter.setPositionCenter(-37);
+        lifeCounter.setPositionCenter(-25);
         lifeCounter.setFontScale(0.3f);
         lifeCounter.setAlignment(2);
 
