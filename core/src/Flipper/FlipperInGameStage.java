@@ -392,43 +392,6 @@ public class FlipperInGameStage extends Box2dStage {
         });
         addActor(rightControlActor);
 
-        final PermanentTimer p;
-        addTimer(p = new PermanentTimer(new PermanentTimerListener(){
-            Vector3 oldXYZ = null;
-            @Override
-            public void onTick(PermanentTimer sender, float correction) {
-                super.onTick(sender, correction);
-
-                if (oldXYZ != null){
-                    Vector3 newXYZ = new Vector3();
-                    newXYZ.x = Gdx.input.getAccelerometerX();
-                    newXYZ.y = Gdx.input.getAccelerometerY();
-                    newXYZ.z = Gdx.input.getAccelerometerZ();
-
-                    if (oldXYZ.sub(newXYZ).len() >= 0.4f * Gdx.graphics.getDeltaTime()){
-                        Gdx.app.log("Flipper", "Tilt");
-                        cheat(new Vector2(oldXYZ.sub(newXYZ).x * 100, oldXYZ.sub(newXYZ).z * 100));
-                        sender.stop();
-                        addTimer(new OneTickTimer(0.5f, new OneTickTimerListener(){
-                            @Override
-                            public void onTick(OneTickTimer sender2, float correction) {
-                                super.onTick(sender2, correction);
-                                sender.start();
-                            }
-                        }));
-                    }
-                }
-                else {
-                    oldXYZ = new Vector3();
-                }
-
-                oldXYZ.x = Gdx.input.getAccelerometerX();
-                oldXYZ.y = Gdx.input.getAccelerometerY();
-                oldXYZ.z = Gdx.input.getAccelerometerZ();
-
-            }
-        }));
-
     }
 
 }
