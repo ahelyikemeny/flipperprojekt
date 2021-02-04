@@ -20,8 +20,8 @@ public class FlipperInfoStage extends MyStage {
         addBackButtonScreenBackByStackPopListener();
         setCameraResetToCenterOfScreen();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
-        labelStyle.fontColor = Color.GREEN;
+        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
+        labelStyle.fontColor = Color.YELLOW;
 
         MyLabel label1 = new MyLabel(game, "Back", labelStyle);
         label1.setFontScale(0.2f);
@@ -37,9 +37,14 @@ public class FlipperInfoStage extends MyStage {
             }
         });
 
-        MyLabel label = new MyLabel(game, "Kancsal csinalj texturat!!4!", labelStyle);
+        MyLabel label = new MyLabel(game, "A kepernyo bal es jobb szelet erintve tudjuk az utoket hasznalni. A cel hogy eltalald a palya tetejen levo erzekeloket. ", labelStyle);
         label.setFontScale(0.2f);
         label.setPosition(0,70);
         addActor(label);
+
+        MyLabel label2 = new MyLabel(game, "az utoket hasznalni. A cel hogy eltalald a palya tetejen levo erzekeloket. ", labelStyle);
+        label2.setFontScale(0.2f);
+        label2.setPosition(0,60);
+        addActor(label2);
 
 } }
