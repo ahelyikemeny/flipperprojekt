@@ -20,7 +20,7 @@ public class FlipperInfoStage extends MyStage {
         addBackButtonScreenBackByStackPopListener();
         setCameraResetToCenterOfScreen();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
-        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
+        labelStyle.font = game.getMyAssetManager().getFont("Flipper/font.ttf");
         labelStyle.fontColor = Color.YELLOW;
 
         MyLabel label1 = new MyLabel(game, "Back", labelStyle);
@@ -41,6 +41,7 @@ public class FlipperInfoStage extends MyStage {
         label.setFontScale(0.2f);
         label.setPosition(0,70);
         addActor(label);
+
 
         MyLabel label2 = new MyLabel(game, "az utoket hasznalni. A cel hogy eltalald a palya tetejen levo erzekeloket. ", labelStyle);
         label2.setFontScale(0.2f);
