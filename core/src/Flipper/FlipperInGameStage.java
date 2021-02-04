@@ -190,10 +190,10 @@ public class FlipperInGameStage extends Box2dStage {
         addActor(flipperutoActor = new FlipperutoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
         addActor(flipperutoActor2 = new FlipperutoActor2(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 25, 25));
         //addActor(new GyorsitoActor(this, new MyFixtureDef(), BodyDef.BodyType.StaticBody, 30, 30));
-        SensorActor sensorActor = new SensorActor(game, world, 13,5,71,72);
+        SensorActor sensorActor = new SensorActor(game, world, 13,2,74,68);
         sensorActor.setRotation(30);
         addActor(sensorActor);
-        SensorActor2 sensorActor2 = new SensorActor2(game, world, 13, 5, 3, 72);
+        SensorActor2 sensorActor2 = new SensorActor2(game, world, 10, 2, 3, 68);
         sensorActor2.setRotation(-30);
         addActor(sensorActor2);
         ballActor = new BallActor(game, world, 5,5,29,85);
