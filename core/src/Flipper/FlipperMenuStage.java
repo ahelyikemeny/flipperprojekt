@@ -65,7 +65,7 @@ public class FlipperMenuStage extends MyStage {
             }
         });
 
-        this.addListener(c1 = new ClickListener() {
+        label2.addListener(c1 = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
