@@ -39,7 +39,7 @@ public class FlipperInGameStage extends Box2dStage {
     FlipperutoActor flipperutoActor;
     FlipperutoActor2 flipperutoActor2;
     PointActorCircle pointActorCircle;
-
+    private Vector2 lastClick = null;
     private MyLabel lifeCounter;
     private MyLabel pointCounter;
     private int life = 3;
@@ -207,6 +207,14 @@ public class FlipperInGameStage extends Box2dStage {
         addActor(pointActorCircle);
 
 
+        PocokActor pocokActor = new PocokActor(game, world, 30, 135);
+        PocokActor pocokActor2 = new PocokActor(game, world, 50, 135);
+       // PocokActor pocokActor3 = new PocokActor(game, world, 10, 135);
+        addActor(pocokActor);
+        addActor(pocokActor2);
+        //addActor(pocokActor3);
+
+
         lifeCounter = new MyLabel(game, "Life: ", new LifeCounter(game));
         addActor(lifeCounter);
         lifeCounter.setFontScale(0.3f);
@@ -266,6 +274,15 @@ public class FlipperInGameStage extends Box2dStage {
             @Override
             public void beginContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
                 if (otherHelper.getActor() instanceof BallActor){
+                    if (lastClick == null) {
+                        lastClick = new Vector2(myHelper.body.getPosition());
+                        game.getMyAssetManager().getSound("Flipper/katapult.mp3").play();
+                    }else{
+                        if (lastClick.sub(myHelper.body.getPosition()).len() > 5f) {
+                            game.getMyAssetManager().getSound("Flipper/katapult.mp3").play();
+                        }
+                        lastClick.set(myHelper.body.getPosition());
+                    }
                     otherHelper.invoke(new Runnable() {
                         @Override
                         public void run() {
@@ -299,6 +316,15 @@ public class FlipperInGameStage extends Box2dStage {
             @Override
             public void beginContact(Contact contact, Box2DWorldHelper myHelper, Box2DWorldHelper otherHelper) {
                 if (otherHelper.getActor() instanceof BallActor){
+                    if (lastClick == null) {
+                        lastClick = new Vector2(myHelper.body.getPosition());
+                        game.getMyAssetManager().getSound("Flipper/katapult.mp3").play();
+                    }else{
+                        if (lastClick.sub(myHelper.body.getPosition()).len() > 5f) {
+                            game.getMyAssetManager().getSound("Flipper/katapult.mp3").play();
+                        }
+                        lastClick.set(myHelper.body.getPosition());
+                    }
                     otherHelper.invoke(new Runnable() {
                         @Override
                         public void run() {
@@ -365,7 +391,6 @@ public class FlipperInGameStage extends Box2dStage {
             }
         });
         addActor(rightControlActor);
-
 
         final PermanentTimer p;
         addTimer(p = new PermanentTimer(new PermanentTimerListener(){

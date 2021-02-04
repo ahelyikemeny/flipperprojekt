@@ -12,6 +12,7 @@ public class FlipperMenuScreen extends MyScreen {
     @Override
     protected void afterAssetsLoaded() {
         addStage(new FlipperMenuStage(game), 1,true);
+        ((FlipperGame)game).setMusic(FlipperGame.MusicType.MAIN);
     }
 
     @Override
