@@ -20,6 +20,7 @@ import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.Box2dStage;
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.MyContactListener;
 import hu.csanyzeg.master.MyBaseClasses.Box2dWorld.MyFixtureDef;
 import hu.csanyzeg.master.MyBaseClasses.Game.MyGame;
+import hu.csanyzeg.master.MyBaseClasses.Scene2D.OneSpriteStaticActor;
 import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimer;
 import hu.csanyzeg.master.MyBaseClasses.Timers.OneTickTimerListener;
 import hu.csanyzeg.master.MyBaseClasses.Timers.PermanentTimer;
@@ -324,7 +325,7 @@ public class FlipperInGameStage extends Box2dStage {
 
             }
         });
-
+//Bal oldali hover actor\\
         Actor leftControlActor;
         leftControlActor = new Actor(); //new OneSpriteStaticActor(game, "badlogic.jpg");
         leftControlActor.setDebug(game.debug);
@@ -344,6 +345,27 @@ public class FlipperInGameStage extends Box2dStage {
             }
         });
         addActor(leftControlActor);
+        //Jobb oldali hover actor\\
+        Actor rightControlActor;
+        rightControlActor = new Actor();
+        rightControlActor.setDebug(game.debug);
+        rightControlActor.setPosition(60,- (getViewport().getWorldHeight() / 2 - ((ExtendViewport)getViewport()).getCamera().position.y));
+        rightControlActor.setSize(getViewport().getWorldWidth() / 3, getViewport().getWorldHeight());
+        rightControlActor.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                flipperutoActor2.hitUp();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                flipperutoActor2.hitDown();
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        addActor(rightControlActor);
+
 
         final PermanentTimer p;
         addTimer(p = new PermanentTimer(new PermanentTimerListener(){
