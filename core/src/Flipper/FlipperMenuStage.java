@@ -28,7 +28,8 @@ public class FlipperMenuStage extends MyStage {
         super(new ExtendViewport(90,160), game);
         addBackButtonScreenBackByStackPopListener();
         setCameraResetToLeftBottomOfScreen();
-
+        BackGroundActor backGroundActor = new BackGroundActor(game);
+        addActor(backGroundActor);
         //addActor(new AnimatedKatapultActor(game));
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
