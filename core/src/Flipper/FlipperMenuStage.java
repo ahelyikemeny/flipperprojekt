@@ -33,7 +33,7 @@ public class FlipperMenuStage extends MyStage {
         //addActor(new AnimatedKatapultActor(game));
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
-        labelStyle.fontColor = Color.WHITE;
+        labelStyle.fontColor = Color.PURPLE;
 
         MyLabel label1 = new MyLabel(game, "Start", labelStyle);
         label1.setFontScale(0.2f);
