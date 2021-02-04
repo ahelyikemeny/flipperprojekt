@@ -38,14 +38,16 @@ public class FlipperInfoStage extends MyStage {
         });
 
         MyLabel label = new MyLabel(game, "A kepernyo bal es jobb szelet erintve tudjuk az utoket hasznalni. A cel hogy eltalald a palya tetejen levo erzekeloket. ", labelStyle);
-        label.setFontScale(0.2f);
+        label.setFontScale(0.1f);
         label.setPosition(0,70);
         addActor(label);
 
 
         MyLabel label2 = new MyLabel(game, "az utoket hasznalni. A cel hogy eltalald a palya tetejen levo erzekeloket. ", labelStyle);
-        label2.setFontScale(0.2f);
+        label2.setFontScale(0.1f);
         label2.setPosition(0,60);
         addActor(label2);
+
+
 
 } }
