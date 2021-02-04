@@ -33,26 +33,26 @@ public class FlipperMenuStage extends MyStage {
         //addActor(new AnimatedKatapultActor(game));
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = game.getMyAssetManager().getFont("Flipper/font2.ttf");
-        labelStyle.fontColor = Color.YELLOW;
+        labelStyle.fontColor = Color.WHITE;
 
         MyLabel label1 = new MyLabel(game, "Start", labelStyle);
         label1.setFontScale(0.2f);
-        label1.setPosition(0,90);
+        label1.setPosition(35,90);
         addActor(label1);
 
         MyLabel label2 = new MyLabel(game, "Exit", labelStyle);
         label2.setFontScale(0.2f);
-        label2.setPosition(0,0);
+        label2.setPosition(35,0);
         addActor(label2);
 
         MyLabel label3 = new MyLabel(game, "Info", labelStyle);
         label3.setFontScale(0.2f);
-        label3.setPosition(0,60);
+        label3.setPosition(35,60);
         addActor(label3);
 
         MyLabel label4 = new MyLabel(game, "Credits", labelStyle);
         label4.setFontScale(0.2f);
-        label4.setPosition(0,30);
+        label4.setPosition(35,30);
         addActor(label4);
 
 
